@@ -2,7 +2,7 @@ import numpy as np
 
 
 class LinearRegression(object):
-    """Multvariate Linear regression model using batch gradient descent"""
+    """Multvariate Logistic regression model using batch gradient descent"""
 
     def __init__(self):
         pass
@@ -12,6 +12,7 @@ class LinearRegression(object):
 
         for _ in range(0, epochs):
             for index, theta in enumerate(self.theta_array):
+                sigmoid_loss = - np.log(h(x))
                 avg_full_batch_loss = 0.5*np.average(np.square(np.dot(x[index], theta) - y))
                 avg_full_batch_partial_derrivitives = np.average(np.dot(x[index], theta)- y)
                 self.theta_array[index] = theta - learning_rate * avg_full_batch_partial_derrivitives
@@ -21,8 +22,8 @@ class LinearRegression(object):
         #     "Please make sure to train the model before validating.")
 
         predicted_y = np.dot(x, self.theta_array)
-        rmse = np.sqrt(np.average(np.square(y- predicted_y))) # Root Mean Square Error (RMSE)
-        return predicted_y, rmse
+        accuracy = len(y) - np.sum(np.absolute(y_predicted - y))
+        return predicted_y, accuracy
 
     def predict(self, x):
         # assert 'self.theta_array' in globals(), ("ValueError: theta is not defined."
