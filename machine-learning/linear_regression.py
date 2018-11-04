@@ -15,9 +15,13 @@ class LinearRegression(object):
 
         for _ in range(1, epochs):
             for index, theta in enumerate(self.theta_array):
-                avg_full_batch_loss = np.average(np.sqrt(np.square(np.dot(x[index], theta) - y)))
-                avg_full_batch_partial_derrivitives = 0.5*np.average((np.dot(x[index], theta)- y)*x[index])
-                self.theta_array[index] -= learning_rate * avg_full_batch_partial_derrivitives
+                avg_batch_loss = np.average(
+                                 np.sqrt(
+                                 np.square(
+                                 np.dot(x[index], theta) - y)))
+                avg_batch_partial_derrivitive = 0.5*np.average((
+                                                    np.dot(x[index], theta)- y)*x[index])
+                self.theta_array[index] -= learning_rate * avg_batch_partial_derrivitive
 
     def validate(self, x, y):
         self._check_theta_exists()
@@ -46,5 +50,3 @@ class LinearRegression(object):
     def _check_theta_exists(self):
         assert hasattr(self, 'theta_array'), ("ValueError: theta is not defined. "
             "Please make sure to train the model before predicting.")
-
-    
