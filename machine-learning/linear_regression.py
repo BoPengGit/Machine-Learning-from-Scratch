@@ -2,7 +2,7 @@ import numpy as np
 
 
 class LinearRegression(object):
-    """Multivariate linear regression model using batch gradient descent"""
+    """Multivariate linear regression model using gradient descent"""
 
     def __init__(self):
         pass
