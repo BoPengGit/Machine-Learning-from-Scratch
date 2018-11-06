@@ -1,31 +1,22 @@
 import numpy as np
 
 
-class LinearRegression(object):
-    """Multvariate Logistic regression model using batch gradient descent"""
-
+class LogisticRegression(object):
+    """Single Class Multivariate logistic regression model using gradient descent"""
 
     def __init__(self):
         pass
 
-    def train(self, x, y, batch_size=32, epochs=10, learning_rate=0.001):
+    def train(self, x, y, epochs=10, learning_rate=0.0001):
 
         self.theta_array = np.zeros(np.array(x.ndim)+1)
 
         x = self._add_bias(x)
 
         for _ in range(1, epochs):
-            i = 0
-            for index, theta in enumerate(self.theta_array):
-                avg_batch_loss = np.average(
-                                 np.sqrt(
-                                 np.square(
-                                 np.dot(x[index][i:i+32], theta[i:i+32]) - y[i:i+32])))
-                avg_batch_partial_deriv = 0.5*np.average((
-                                            np.dot(x[index][i:i+32], theta[i:i+32])- y) *x[index][i:i+32])
-                self.theta_array[index] -= learning_rate * avg_batch_partial_deriv
-
-                i += batch_size
+            avg_minibatch_partial_grads = np.average(
+                                          (self._sigmoid(x, self.theta_array) - y) * x, axis=1)
+            self.theta_array -= learning_rate * avg_minibatch_partial_grads
 
     def validate(self, x, y):
         self._check_theta_exists()
@@ -41,7 +32,7 @@ class LinearRegression(object):
 
         x = self._add_bias(x)
 
-        predicted_y = np.dot(x.transpose(), self.theta_array)
+        predicted_y = self._sigmoid(x, self.theta_array)
         return predicted_y
 
     def _add_bias(self, x):
@@ -50,6 +41,18 @@ class LinearRegression(object):
         else:
              x = np.row_stack((x, np.ones(len(x[0]))))
         return x
+
+    def _sigmoid(self, x, theta_array):
+        sigmoid = 1/(1+np.exp(-np.dot(x.transpose(), theta_array)))
+        return sigmoid
+
+    def _avg_minibatch_loss(self, x, theta_array, y):
+        # RMSE
+        avg_minibatch_loss = np.sqrt(
+                 np.average(
+                 np.square(
+                 x.transpose().dot(theta_array) - y)))
+        return avg_minibatch_loss
 
     def _check_theta_exists(self):
         assert hasattr(self, 'theta_array'), ("ValueError: theta is not defined. "
