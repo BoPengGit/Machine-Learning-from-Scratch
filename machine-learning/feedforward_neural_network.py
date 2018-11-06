@@ -2,10 +2,19 @@ import numpy as np
 
 
 class FeedForwardNeuralNetwork(object):
-    """Feed forward neural network model using gradient descent"""
+    """Feed forward neural network model using gradient descent and sigmoid activations."""
 
     def __init__(self):
         pass
+
+    def initialize(self):
+        # Initalize the architecture
+        pass
+
+    def fully_connected_layer(self, num_nodes, architecture):
+        # Append fully_connected layer to input architecture.
+        num_last_layer_nodes = self.architecture.layer[-1].num_units
+        self.architecture = self.architecture.add(layer)
 
     def train(self, x, y, epochs=10, learning_rate=0.0001):
 
