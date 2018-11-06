@@ -44,6 +44,12 @@ class FeedForwardNeuralNetwork(object):
         predicted_y = self._sigmoid(x, self.theta_array)
         return predicted_y
 
+    def _forward_pass(self):
+        pass
+
+    def _backword_pass(self):
+        pass
+
     def _add_bias(self, x):
         if x.ndim == 1:
              x = np.row_stack((x, np.ones(len(x))))
