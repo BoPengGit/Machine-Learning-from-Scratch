@@ -19,7 +19,7 @@ class LinearRegression(object):
             self.theta_array -= learning_rate * avg_batch_partial_grads
 
     def validate(self, x, y):
-        self._check_theta_exists()
+        self._check_theta_exists('validating')
 
         x = self._add_bias(x)
 
@@ -28,7 +28,7 @@ class LinearRegression(object):
         return predicted_y, rmse
 
     def predict(self, x):
-        self._check_theta_exists()
+        self._check_theta_exists('predicting')
 
         x = self._add_bias(x)
 
@@ -42,13 +42,14 @@ class LinearRegression(object):
              x = np.row_stack((x, np.ones(len(x[0]))))
         return x
 
-    def _avg_batch_loss(x, theta, y):
-        avg_batch_loss = np.average(
-                 np.sqrt(
+    def _avg_minibatch_loss(self, x, theta_array, y):
+        # RMSE
+        avg_minibatch_loss = np.sqrt(
+                 np.average(
                  np.square(
-                 np.dot(x[index], theta) - y)))
-        return avg_batch_loss
+                 x.transpose().dot(theta_array) - y)))
+        return avg_minibatch_loss
 
-    def _check_theta_exists(self):
+    def _check_theta_exists(self, phrase):
         assert hasattr(self, 'theta_array'), ("ValueError: theta is not defined. "
-            "Please make sure to train the model before predicting.")
+            "Please make sure to train the model before {}}.".format(phrase))

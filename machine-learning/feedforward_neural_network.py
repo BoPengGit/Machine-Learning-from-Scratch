@@ -58,7 +58,7 @@ class FeedForwardNeuralNetwork(NeuralNetwork):
             self.theta_array -= learning_rate * avg_minibatch_partial_grads
 
     def validate(self, x, y):
-        self._check_theta_exists()
+        self._check_theta_exists('validating')
 
         x = self._add_bias(x)
 
@@ -67,7 +67,7 @@ class FeedForwardNeuralNetwork(NeuralNetwork):
         return predicted_y, rmse
 
     def predict(self, x):
-        self._check_theta_exists()
+        self._check_theta_exists('predicting')
 
         x = self._add_bias(x)
 
@@ -93,6 +93,6 @@ class FeedForwardNeuralNetwork(NeuralNetwork):
                  x.transpose().dot(theta_array) - y)))
         return avg_minibatch_loss
 
-    def _check_theta_exists(self):
+    def _check_theta_exists(self, phrase):
         assert hasattr(self, 'theta_array'), ("ValueError: theta is not defined. "
-            "Please make sure to train the model before predicting.")
+            "Please make sure to train the model before {}}.".format(phrase))
