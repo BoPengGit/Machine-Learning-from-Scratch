@@ -1,23 +1,6 @@
 import numpy as np
 
 
-class Layer(object):
-    """Neural Network Layers"""
-
-    def __init__(self):
-        pass
-
-    def fully_connected(self, num_nodes):
-        # Append fully_connected layer to input architecture.
-        num_last_layer_nodes = self.architecture.layer[-1].num_units
-        self.architecture = self.architecture.add(layer)
-
-    def binary_cross_entropy(self):
-        sigmoid = 1/(1+np.exp(-np.dot(x.transpose(), theta_array)))
-        return sigmoid
-        # self.architecture
-
-
 class NeuralNetwork(object):
     """General neural network parent class"""
 
