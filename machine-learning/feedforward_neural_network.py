@@ -1,20 +1,50 @@
 import numpy as np
 
 
-class FeedForwardNeuralNetwork(object):
-    """Feed forward neural network model using gradient descent and sigmoid activations."""
+class Layer(object):
+    """Neural Network Layers"""
 
     def __init__(self):
         pass
 
-    def initialize(self):
-        # Initalize the architecture
-        pass
-
-    def fully_connected_layer(self, num_nodes, architecture):
+    def fully_connected(self, num_nodes):
         # Append fully_connected layer to input architecture.
         num_last_layer_nodes = self.architecture.layer[-1].num_units
         self.architecture = self.architecture.add(layer)
+
+    def binary_cross_entropy(self):
+        sigmoid = 1/(1+np.exp(-np.dot(x.transpose(), theta_array)))
+        return sigmoid
+        # self.architecture
+
+
+class NeuralNetwork(object):
+    """General neural network parent class"""
+
+    def __init__(self):
+        pass
+
+    def initalize(self):
+        # Initalize the architecture
+        pass
+
+    def add(self):
+        pass
+
+    def _forward_pass(self):
+        pass
+
+    def _backword_pass(self):
+        pass
+
+
+class FeedForwardNeuralNetwork(NeuralNetwork):
+    """Feed forward neural network model using gradient descent and sigmoid activations
+       for binary classfication.
+    """
+
+    def __init__(self):
+        pass
 
     def train(self, x, y, epochs=10, learning_rate=0.0001):
 
@@ -43,12 +73,6 @@ class FeedForwardNeuralNetwork(object):
 
         predicted_y = self._sigmoid(x, self.theta_array)
         return predicted_y
-
-    def _forward_pass(self):
-        pass
-
-    def _backword_pass(self):
-        pass
 
     def _add_bias(self, x):
         if x.ndim == 1:
