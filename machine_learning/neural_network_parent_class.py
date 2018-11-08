@@ -1,5 +1,4 @@
 import numpy as np
-from .neural_network_parent_class import NeuralNetwork
 
 
 class FeedForwardNeuralNetwork(NeuralNetwork):
