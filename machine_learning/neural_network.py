@@ -11,9 +11,10 @@ class NeuralNetwork(object):
             compile(self):
                 Compile the NeuralNetwork (self) object to be ready to be
                 trained/valided/predicted. Connects the forward and backward pass
-                math of the (self) object.
+                math of the (self) NeuralNetwork object. initialize the weights
+                of the (self) NeuralNetwork object.
             train(self, x, y, batch_size, epoch, optimizer, learning_rate,
-                  cost_function, actiation_function):
+                  activation_function, cost_function):
                 Updates the weights of the compiled architecture of the (self)
                 neural network object through forward and backward pass.
                     Parameters:
@@ -28,7 +29,20 @@ class NeuralNetwork(object):
                                 examples is used as the loss to calculate the loss
                                 gradient and update the weights through the
                                 backward pass.
-                        epoch:
+                        epoch: Number of times to do forward and backward pass
+                        through the entire training data (x).
+                        optimizer: The optimization function used to update
+                        the weights during the backward pass.
+                        learning_rate: Learing_rate used to update the weights
+                        during the backward pass.
+                        activation_function:
+                        cost_function: Function to calculate the loss.
+            validate(self, x, y):
+                Predicts target y values of x input using the current weights
+                of the (self) NeuralNetwork object.
+                    Output:
+                        y_hat: Predicted y values using the current weights
+                        of the (self) NeuralNetwork object.
     """
 
     def __init__(self):
