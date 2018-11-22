@@ -1,13 +1,26 @@
 import numpy as np
+from .optimization import *
 
 
 class LinearRegression(object):
     """Multivariate linear regression model using gradient descent"""
 
-    def __init__(self):
-        pass
+    def __init__(self,
+                 optimizer,
+                 learning_rate=0.0001,
+                 beta=0.9,
+                 velocity=0,
+                 sqr_velocity=0,
+                 epsion=0.000001):
 
-    def train(self, x, y, epochs=10, batch_size=32, learning_rate=0.0001):
+        self.optimizer = optimizer
+        self.learning_rate = learning_rate
+        self.beta = beta
+        self.velocity = velocity
+        self.epsilon = epsilon
+        self.sqr_velocity = sqr_velocity
+
+    def train(self, x, y, epochs=10, batch_size=32):
 
         self.theta_array = np.zeros(np.array(x.ndim)+1)
 
@@ -16,7 +29,12 @@ class LinearRegression(object):
         for _ in range(1, epochs):
             avg_batch_partial_grads = np.average(
                                       (x.transpose().dot(self.theta_array) - y) * x, axis=1)
-            self.theta_array -= learning_rate * avg_batch_partial_grads
+            self.theta_array, self.velocity = (self.optimizer(theta_array=self.theta_array,
+                                                              learning_rate=self.learning_rate,
+                                                              beta=self.beta,
+                                                              velocity=self.velocity,
+                                                              gradient=avg_batch_partial_grads))
+            # self.theta_array -= learning_rate * avg_batch_partial_grads
 
     def validate(self, x, y):
         self._check_theta_exists('validating')
