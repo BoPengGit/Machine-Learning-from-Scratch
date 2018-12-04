@@ -1,8 +1,8 @@
 import numpy as np
 
-def binary_cross_entropy(x, theta_array):
-    sigmoid = 1/(1+np.exp(-np.dot(x.transpose(), theta_array)))
-    return sigmoid
+def binary_cross_entropy(y_predict, y_actual):
+    loss = -(y_actual*np.log(y_predict) + (1-y_actual)*np.log(1-y_predict))
+    return loss
 
 def categorical_cross_entropy(x, theta_array):
     sigmoid = 1/(1+np.exp(-np.dot(x.transpose(), theta_array)))
