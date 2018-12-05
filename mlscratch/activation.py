@@ -1,18 +1,58 @@
 import numpy as np
 
 
-def sigmoid(x, theta_array):
-    sigmoid = 1/(1+np.exp(-np.dot(x.transpose(), theta_array)))
-    return sigmoid
+class sigmoid(object):
 
-def tanh(x, theta_array):
-    pass
+    def __init__(self, array):
+        self.array = array
 
-def relu(x, theta_array):
-    pass
+    def __new__(cls):
+        sigmoid = 1/(1+np.exp(array))
+        return sigmoid
 
-def leaky_relu(x, theta_array):
-    pass
-    
-def elu(x, theta_array):
-    pass
+    def derivative(self):
+        pass
+
+class tanh(object):
+
+    def __init__(self, array):
+        self.array = array
+
+    def __new__(cls):
+        pass
+
+    def derivative(self):
+        pass
+
+class relu(object):
+
+    def __init__(self, array):
+        self.array = array
+
+    def __new__(cls):
+        return np.maximum(array, 0, array)
+
+    def derivative(self):
+        pass
+
+class leaky_relu(object):
+
+    def __init__(self, array):
+        self.array = array
+
+    def __new__(cls):
+        pass
+
+    def derivative(self):
+        pass
+
+class elu(object):
+
+    def __init__(self, array):
+        self.array = array
+
+    def __new__(cls):
+        pass
+
+    def derivative(self):
+        pass
