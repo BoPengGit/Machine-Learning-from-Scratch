@@ -11,7 +11,7 @@ class sigmoid(object):
         pass
 
     def evaluate(self, array):
-        self.sigmoid = 1/(1+np.exp(array))
+        self.sigmoid = 1/(1+np.exp(-array))
         return self.sigmoid
 
     def derivative(self, output_values, input_values):

@@ -1,20 +1,30 @@
 from mlscratch.activation import *
 
-class fully_connected(object):
 
-    def __init__(self, num_nodes, activation):
-        self.num_nodes = num_nodes
-        self.activation=activation()
+class FullyConnected(object):
+
+    def __init__(self, size, activation):
+        self.size = size
+        self.activation = activation()
 
 
-class Conv2D():
+class Conv2D(object):
     pass
 
-class flatten():
+
+class Flatten(object):
     pass
 
-class batch_normalization():
+
+class InputLayer(object):
+
+    def __init__(self, size):
+        self.size = size
+
+
+class batch_normalization(object):
     pass
 
-class dropout():
+
+class Dropout(object):
     pass
