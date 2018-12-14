@@ -46,34 +46,50 @@ class NeuralNetwork(object):
     """
 
     def __init__(self):
-        pass
+        self.architecture = []
+        self.weights = []
+        self.local_gradients = []
+        self.partial_loss_gradients = []
+        self.loss_function = None
+        self.optimizer = None
 
     def add(self, layer):
-        pass
+        self.architecture.append(layer)
 
     def compile(self):
+        for i in range(1, len(self.architecture)):
+            self.weights.append(self._weight_initialization(self.architecture[i-1].size+1,
+                                                            self.architecture[i].size))
+
+    def validate(self, x_data, y):
         pass
 
-    def train(self, x, y):
+    def predict(self, x_data):
+        return self._forward_pass(x_data)
+
+    def train(self, x_data, y, batch_size):
         pass
 
-    def validate(self, x, y):
-        pass
+    def _forward_pass(self, x_data):
+        y_predict = []
+        for x in x_data:
+            input_values = x
+            for index, weights_layer in enumerate(self.weights):
+                input_values = np.append(input_values, 1)
 
-    def predict(self, x):
-        pass
+                output_values = self.architecture[index+1].activation.evaluate((np.dot(input_values,
+                                                                                       weights_layer.transpose())))
+                self.local_gradients.append(self.architecture[index+1].activation.derivative(output_values,
+                                                                                             input_values))
+                input_values = output_values
+            y_predict_x = input_values
+            y_predict.append(y_predict_x)
 
-    def _forward_pass(self):
-        pass
+        return y_predict
 
-    def _backword_pass(self):
-        pass
+    def _backward_pass(self):
 
 
-
-
-# initliaze
-# add layers to self object
-# compile
-# train
-# validate / predict
+    def _weight_initialization(self, size_l_minus1, size_l):
+        weight_matrix = (np.random.randn(size_l, size_l_minus1) * np.sqrt(2/size_l_minus1)) * 0.01 + 0.05
+        return weight_matrix
